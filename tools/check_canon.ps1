@@ -24,7 +24,7 @@
     каталога канона.
 
 .EXAMPLE
-    .\check_canon.ps1
+    .\tools\check_canon.ps1
 #>
 [CmdletBinding()]
 param(
@@ -32,7 +32,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$canonRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+# Скрипт живёт в tools/ (исполняется процессом разработки), корень канона — уровнем выше.
+$canonRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 if (-not $DevRoot) { $DevRoot = Split-Path -Parent $canonRoot }
 
 $problems = New-Object System.Collections.Generic.List[string]
